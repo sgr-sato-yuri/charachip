@@ -1,0 +1,48 @@
+{
+  "name": "chara-chip-maker",
+  "version": "1.0.0",
+  "description": "chara-chip-maker",
+  "main": "index.js",
+  "bin": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "electron .",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "mon": "nodemon local.js",
+    "dev": "webpack --mode development",
+    "build": "webpack --mode production"
+  },
+  "author": "sgr",
+  "license": "ISC",
+  "dependencies": {
+    "@gluon-framework/glugun": "^4.1.0",
+    "@gluon-framework/gluon": "^0.14.0",
+    "body-parser": "^1.20.2",
+    "canvas": "^2.11.2",
+    "express": "^4.18.3",
+    "iconv-lite": "^0.6.3",
+    "image-size": "^1.1.1",
+    "image-type": "^5.2.0",
+    "multer": "^1.4.5-lts.1",
+    "sharp": "^0.33.2"
+  },
+  "build": {
+    "appId": "com.electron.chara-chip-maker",
+    "productName": "chara-chip-maker",
+    "win": {
+      "publisherName": "sgr",
+      "certificateFile": "C:/Users/tsuka/demoSSL/CodeSigning/msen.pfx"
+    }
+  },
+  "files": [
+    "index.js",
+    "index.html",
+    "css.css",
+    "Image/",
+    "JavaScript/",
+    "package.json",
+    "package-lock.json",
+    "webpack.config.js"
+  ]
+}

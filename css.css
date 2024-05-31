@@ -1,0 +1,165 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    overflow-x: hidden;
+}
+a{
+    display: none;
+}
+/*menubar*/
+.menu{
+    background-color: #aaa;
+    height: 30px;
+    line-height: 30px;
+    display: flex;
+}
+.menu > h1{
+    font-size: 16px;
+    color: #333;
+    list-style: none;
+    padding: 0 20px;
+    margin: 0 1px;
+    cursor: default;
+    border-radius: 10px 10px 0 0;
+    background-color: #eee;
+}
+#file{
+    background-color: #def;
+}
+/*menu*/
+.childmenu{
+    background-color: #def;
+    height: 120px;
+}
+.child{
+    list-style: none;
+    display: flex;
+}
+.child > li{
+    width: 100px;
+    height: 120px;
+    font-size: 12px;
+    text-align: center;
+    padding: 0 10px;
+}
+li:hover{
+    background-color: white;
+    border-radius: 2px;
+}
+.childmenu{
+    display: none;
+}
+#childfile{
+    display: block;
+}
+img,.img{
+    width: 90px;
+    height: 90px;
+    border: 1px solid black
+}
+/*file > readfile*/
+form{
+    display: none;
+}
+/*config > size*/
+li[id=bbb]{
+    display: grid;
+    place-content: center;
+}
+form[name=selectsize]{
+    display: block;
+}
+form[name="selectsize"] > input{
+    display: none;
+}
+/*main*/
+.main{
+    display: flex;
+}
+/*left*/
+.left{
+    width: 380px;
+    min-height: 500px;
+    height: 80vh;
+    flex-shrink: 0;
+    background-color: #fbfaef;
+}
+.RCL{
+    width: 90px;
+    height: 40px;
+    margin-left: 55px;
+    padding: 10px;
+}
+.foot{
+    margin: 0 5px;
+}
+.head{
+    margin: 0 15px;
+}
+.head > img{
+    writing-mode: vertical-lr;
+    width: 40px;
+    height: 96px;
+}
+.row{
+    display: flex;
+    margin-top: 5px;
+}
+
+.row > img {
+    width: 96px;
+    height: 96px;
+    margin-right: 7px;
+}
+div > img{
+    box-sizing: border-box;
+}
+p{
+    position: relative;
+    top: 3px;
+    right: 25px;
+    height: 24px;
+    width: 26px;
+    background-color: #555a;
+    color: #ddd;
+    font-weight: normal;
+    border-radius: 3px;
+    text-align: center;
+    display: none;
+}
+#FR{
+    border: 3px dashed #ddd;
+}
+#xfr{
+    display: block;
+}
+.foot > img {
+    width: 90px;
+    height: 40px;
+    margin: 2px;
+}
+
+
+/*right*/
+.right{
+    width: 100%;
+    background-color: #ddd;
+}
+.select{
+    text-align: center;
+}
+.select > img{
+    width: 40vw;
+    height: 40vw;
+    max-width: 400px;
+    max-height: 400px;
+    margin: 10px;
+}
+.data{
+    margin: 0 30px;
+}
+input{
+    width: 80%;
+}

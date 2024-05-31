@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>キャラチップつくるくん</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            overflow-x: hidden;
+        }
+        a{
+            display: none;
+        }
+        /*menubar*/
+        .menu{
+            background-color: #aaa;
+            height: 30px;
+            line-height: 30px;
+            display: flex;
+        }
+        .menu > h1{
+            font-size: 16px;
+            color: #333;
+            list-style: none;
+            padding: 0 20px;
+            margin: 0 1px;
+            cursor: default;
+            border-radius: 10px 10px 0 0;
+            background-color: #eee;
+        }
+        #file{
+            background-color: #def;
+        }
+        /*menu*/
+        .childmenu{
+            background-color: #def;
+            height: 120px;
+        }
+        .child{
+            list-style: none;
+            display: flex;
+        }
+        .child > li{
+            width: 100px;
+            height: 120px;
+            font-size: 12px;
+            text-align: center;
+            padding: 0 10px;
+        }
+        li:hover{
+            background-color: white;
+            border-radius: 2px;
+        }
+        .childmenu{
+            display: none;
+        }
+        #childfile{
+            display: block;
+        }
+        img,.img{
+            width: 90px;
+            height: 90px;
+            border: 1px solid black
+        }
+        /*file > readfile*/
+        form{
+            display: none;
+        }
+        /*config > size*/
+        li[id=bbb]{
+            display: grid;
+            place-content: center;
+        }
+        form[name=selectsize]{
+            display: block;
+        }
+        form[name="selectsize"] > input{
+            display: none;
+        }
+        /*main*/
+        .main{
+            display: flex;
+        }
+        /*left*/
+        .left{
+            width: 380px;
+            min-height: 500px;
+            height: 80vh;
+            flex-shrink: 0;
+            background-color: #fbfaef;
+        }
+        .RCL{
+            width: 90px;
+            height: 40px;
+            margin-left: 55px;
+            padding: 10px;
+        }
+        .foot{
+            margin: 0 5px;
+        }
+        .head{
+            margin: 0 15px;
+        }
+        .head > img{
+            writing-mode: vertical-lr;
+            width: 40px;
+            height: 96px;
+        }
+        .row{
+            display: flex;
+            margin-top: 5px;
+        }
+
+        .row > img {
+            width: 96px;
+            height: 96px;
+            margin-right: 7px;
+        }
+        div > img{
+            box-sizing: border-box;
+        }
+        p{
+            position: relative;
+            top: 3px;
+            right: 25px;
+            height: 24px;
+            width: 26px;
+            background-color: #555a;
+            color: #ddd;
+            font-weight: normal;
+            border-radius: 3px;
+            text-align: center;
+            display: none;
+        }
+        #FR{
+            border: 3px dashed #ddd;
+        }
+        #xfr{
+            display: block;
+        }
+        .foot > img {
+            width: 90px;
+            height: 40px;
+            margin: 2px;
+        }
+
+        /*right*/
+        .right{
+            width: 100%;
+            background-color: #ddd;
+        }
+        .select{
+            text-align: center;
+        }
+        .select > img{
+            width: 40vw;
+            height: 40vw;
+            max-width: 400px;
+            max-height: 400px;
+            margin: 10px;
+        }
+        .data{
+            margin: 0 30px;
+        }
+        input{
+            width: 80%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="menu">
+            <h1 id="file">ファイル</h1>
+            <h1 id="edit">編集</h1>
+            <h1 id="config">設定</h1>
+        </div>
+        <div class="childmenu" id="childfile">
+            <ul class="child file">
+                <li id="newfile"><div class="img"></div>新規作成</li>
+                <li id="readfile"><img src="Image/NAE.png" alt="readfile">画像を読み込む</li>
+                <li id="readpsd"><img src="Image/未実装.png" alt="readpsd">PSDを読み込む</li>
+                <li id="save"><div class="img"></div>名前を付けて保存</li>
+<!--                <li id="overwrite"><div class="img"></div>上書き保存</li>-->
+            </ul>
+            <a>aaa</a>
+            <form>
+                <input id="getfile" name="getfile" type="file" multiple accept=".jpg,.jpeg,.png,.bmp">
+                <input id="getfolder" name="getfolder" type="file" ><!--multiple webkitdirectory accept=".jpg,.jpeg,.png,.bmp">-->
+                <input id="getpsd" name="getpsd" type="file" accept=".psd">
+            </form>
+            <form id="sendimg" enctype="multipart/form-data" method="post">
+                <input id="get0" name="get0" type="file" >
+                <input id="get1" name="get1" type="file" >
+                <input id="get2" name="get2" type="file" >
+                <input id="get3" name="get3" type="file" >
+                <input id="get4" name="get4" type="file" >
+                <input id="get5" name="get5" type="file" >
+                <input id="get6" name="get6" type="file" >
+                <input id="get7" name="get7" type="file" >
+                <input id="get8" name="get8" type="file" >
+                <input id="get9" name="get9" type="file" >
+                <input id="get10" name="get10" type="file" >
+                <input id="get11" name="get11" type="file" >
+                <input id="submit" name="submit" type="submit">
+            </form>
+        </div>
+        <div class="childmenu" id="childedit">
+            <ul class="child edit">
+                <li id="aaa"><img src="https://github.com/sgr-sato-yuri/charaChip-tsukuru-kun/blob/main/img/%E6%9C%AA%E5%AE%9F%E8%A3%85.png?raw=true" alt="未実装">aaa</li>
+            </ul>
+        </div>
+        <div class="childmenu" id="childconfig">
+            <ul class="child config">
+                <li id="bbb">画像の単位サイズ
+                    <form name="selectsize">
+                        <select id="selectsize" >
+                            <option value="32">32</option>
+                        </select>px
+                        <input type="number" id="setsize">
+                    </form>
+                </li>
+            </ul>
+        </div>
+
+    </header>
+    <div class="main">
+        <div class="left">
+            <div class="pic">
+                <div class="row RCL">
+                    <div class="foot"><img src="https://github.com/sgr-sato-yuri/charaChip-tsukuru-kun/blob/main/img/%E5%B7%A6%E8%B6%B3.png?raw=true" alt="左足"></div>
+                    <div class="foot"><img src="https://github.com/sgr-sato-yuri/charaChip-tsukuru-kun/blob/main/img/%E5%A4%AE.png?raw=true" alt="中央"></div>
+                    <div class="foot"><img src="https://github.com/sgr-sato-yuri/charaChip-tsukuru-kun/blob/main/img/%E5%8F%B3%E8%B6%B3.png?raw=true" alt="右足"></div></div>
+                <div class="row 1">
+                    <div class="head"><img src="Image/前.png" alt="前"></div>
+                    <img id="FR" src="Image/未実装.png" alt="1">
+                    <img id="FC" src="Image/未実装.png" alt="2">
+                    <img id="FL" src="Image/未実装.png" alt="3">
+                </div>
+                <div class="row 2">
+                    <div class="head"><img src="Image/左.png" alt="左"></div>
+                    <img id="RR" src="Image/clear.png" alt="4">
+                    <img id="RC" src="Image/clear.png" alt="5">
+                    <img id="RL" src="Image/clear.png" alt="6">
+                </div>
+                <div class="row 3">
+                    <div class="head"><img src="Image/右.png" alt="右"></div>
+                    <img id="LR" src="Image/clear.png" alt="7">
+                    <img id="LC" src="Image/clear.png" alt="8">
+                    <img id="LL" src="Image/clear.png" alt="9">
+                </div>
+                <div class="row 4">
+                    <div class="head"><img src="Image/後.png" alt="後"></div>
+                    <img id="BR" src="Image/clear.png" alt="10">
+                    <img id="BC" src="Image/clear.png" alt="11">
+                    <img id="BL" src="Image/clear.png" alt="12">
+                </div>
+                <div class="x">
+                    <p id="xfr">x</p>
+                    <p id="xfc">x</p>
+                    <p id="xfl">x</p>
+                    <p id="xrr">x</p>
+                    <p id="xrc">x</p>
+                    <p id="xrl">x</p>
+                    <p id="xlr">x</p>
+                    <p id="xlc">x</p>
+                    <p id="xll">x</p>
+                    <p id="xbr">x</p>
+                    <p id="xbc">x</p>
+                    <p id="xbl">x</p>
+                </div>
+            </div>
+        </div>
+        <div class="right">
+            <div class="select">
+                <img id="select" src="Image/clear.png" alt="sumbnail">
+            </div>
+            <div class="data">
+                <p>ファイル名</p>
+                <input id="name" readonly>
+                <p>形式</p>
+                <input id="type" readonly>
+                <p id="info"></p>
+                <p id="title"></p>
+            </div>
+        </div>
+    </div>
+    <script>
+        //renderer-1
+        var Gluon;
+
+        addEventListener("load", async (event) => {
+            imgs = {};
+            imgs = await Gluon.ipc.send("imgcount", {folder:""});
+            console.log(imgs)
+            const imgarray = imgs.data;
+            imgurl = {};
+            Object.keys(imgarray).forEach(x => {
+                // Canvas要素を作成
+                const canvas = document.createElement('canvas');
+                const context = canvas.getContext('2d');
+                // PNG形式のバイナリデータ
+                const binaryData = imgarray[x];
+                // PNGバイナリデータを画像として描画
+                const img = new Image();
+                img.onload = function() {
+                    // Canvasに画像を描画
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    context.drawImage(img, 0, 0);  
+                };
+                // バイナリデータをBase64に変換してimg要素にセット
+                img.src = 'data:image/png;base64,' + btoa(binaryData); 
+                imgurl[x] = img.src;
+            });
+            const readfilepic = document.querySelector(`img[alt="readfile"`);
+            readfilepic.src = imgurl["NAE"];
+            const readpsdpic = document.querySelector(`img[alt="readpsd"]`);
+            readpsdpic.src = imgurl["未実装"];
+            const mae = document.querySelector(`img[alt="前"]`);
+            mae.src = imgurl["前"];
+            const hidari = document.querySelector(`img[alt="左"]`);
+            hidari.src = imgurl["左"];
+            const migi = document.querySelector(`img[alt="右"]`);
+            migi.src = imgurl["右"];
+            const usiro = document.querySelector(`img[alt="後"]`);
+            usiro.src = imgurl["後"];
+            const clear = new File([imgurl["clear"]], "clear.png");
+            const list = new DataTransfer();
+            list.items.add(clear);
+            for(let n=0; n<12; n++){
+                var get = document.getElementById(`get${n}`);
+                get.files = list.files;
+            };
+        //    const ichi = new File([imgurl["a"]], "a.png");
+        //    list.items.clear();
+        //    list.items.add(ichi);
+        //    var get = document.getElementById(`get0`);
+        //    get.files = list.files;
+        });
+        var count = 0;
+
+        const menubar = ["file","edit","config"];
+        const menus = {};
+        const menuchildren = {};
+
+        menubar.forEach(x => {
+            menus[x] = document.getElementById(x);
+            menuchildren[x] = document.getElementById(`child${x}`);
+            
+            if (menus[x] && menuchildren[x]) {
+                menus[x].addEventListener("click", function(){
+                    menubar.forEach(y => {
+                        if (menus[y]) {
+                            menus[y].style.backgroundColor = "#eee";
+                        }
+                        if (menuchildren[y]) {
+                            menuchildren[y].style.display = "none";
+                        }
+                    });
+                    if (menus[x]) {
+                        menus[x].style.backgroundColor = "#def";
+                    }
+                    if (menuchildren[x]) {
+                        menuchildren[x].style.display = "block";
+                    }
+                });
+            }
+        });
+
+        const selectimg = document.getElementById("select");
+        const cells = ["FR","FC","FL","RR","RC","RL","LR","LC","LL","BR","BC","BL"];
+        const files = {};
+        const clearbtn = {};
+
+        cells.forEach(x => {
+            clearbtn[x.toLowerCase()] = document.getElementById(`x${x.toLowerCase()}`);
+
+            files[x.toLowerCase()] = document.getElementById(x);
+            files[x.toLowerCase()].addEventListener("click", function(){
+                cells.forEach(y => {
+                    files[y.toLowerCase()].style.border = "none";
+                    clearbtn[y.toLowerCase()].style.display = "none";
+                });
+                count = cells.indexOf(x,0);
+
+                files[x.toLowerCase()].style.border = "3px dashed #ddd";
+                clearbtn[x.toLowerCase()].style.display = "block";
+                var file = document.getElementById(`get${count}`).files[0];
+                var mini = files[cells[count].toLowerCase()];
+                selectimg.src = mini.src;
+                filename.readOnly = false;
+                filename.value = file.name;
+                filename.readOnly = true;
+                filetype.readOnly = false;
+                filetype.value = file.type;
+                filetype.readOnly = true; 
+                console.log(count);
+            });
+            clearbtn[x.toLowerCase()].addEventListener("click", function(){
+                var getimg = document.getElementById(`get${count}`).files[0];
+                let mini = files[cells[count].toLowerCase()];
+            
+                if(getimg){
+                getimg.value = "";
+                selectimg.src = "";
+                mini.src = "";
+            
+                filename.readOnly = false;
+                filename.value = "";
+                filename.readOnly = true;
+                filetype.readOnly = false;
+                filetype.value = "";
+                filetype.readOnly = true; 
+                }
+            });
+
+        });
+
+        const number = [0,1,2,3,4,5,6,7,8,9,10,11];
+        const input = {};
+        number.forEach(x => {
+            input[x] = document.getElementById(`get${x}`);
+        });
+    </script>
+    <script>
+        //renderer-2
+        //新規作成
+        const newfile = document.getElementById("newfile");
+        newfile.addEventListener("click", async function(){
+            var res = await window.api.newfile();
+
+        })
+        //ファイル読み込み
+        const form = document.getElementById("sendimg");
+        function createinput() {
+            let newInput = document.createElement("input");
+            newInput.type = "file";
+            newInput.id = `get${count}`;
+            newInput.name = `get${count}`;
+            form.appendChild(newInput);
+        }
+
+        var filename = document.getElementById("name");
+        var filetype = document.getElementById("type");
+        const readfile = document.getElementById("readfile");
+        const getfile = document.getElementById("getfile");
+        const getfolder =document.getElementById("getfolder");
+
+        function readff(event) {
+            let gotimg = event.target;
+
+            for(let i=0; i<gotimg.files.length && i < 12; i++){
+                let getfilelist = new DataTransfer();
+                let reader = new FileReader();
+            
+                if (gotimg.files && gotimg.files[i]) {
+                    let currentFile = gotimg.files[i];
+
+                    reader.onload = function (e) {
+                        let mini = files[cells[count].toLowerCase()];
+                        mini.src = e.target.result;
+        //                paths[cells[count].toLowerCase()].textContent = e.target.result;
+                        let file = new File([currentFile], currentFile.name);
+
+                        getfilelist.items.add(file);
+                        var getimg = document.getElementById(`get${count}`);
+                        getimg.files = getfilelist.files;
+                        selectimg.src = mini.src;
+                        getfile.value = "";
+                        files[cells[count].toLowerCase()].style.border = "none";
+                        clearbtn[cells[count].toLowerCase()].style.display = "none";
+                        count++;
+                        getimg = document.getElementById(`get${count}`);
+                        files[cells[count].toLowerCase()].style.border = "3px dashed #ddd";
+                        clearbtn[cells[count].toLowerCase()].style.display = "block";
+                    }
+                filename.readOnly = false;
+                filename.value = gotimg.files[i].name;
+                filename.readOnly = true;
+                filetype.readOnly = false;
+                filetype.value = gotimg.files[i].type;
+                filetype.readOnly = true;
+                };
+                reader.readAsDataURL(gotimg.files[i]);
+            }
+        }
+
+        readfile.addEventListener("click", function() { getfile.click(); });
+        getfile.addEventListener("change", function(event) { readff(event); });
+        getfolder.addEventListener("change",function(event){
+            for(let i = 0; i < 12; i++){
+                var files = event.target.files[i];
+                readff({ target: { files }} );
+            }
+        });
+
+
+        //サイズ変更
+        const setsize = document.getElementById("setsize");
+        const selectsize = document.getElementById("selectsize");
+        var selectopt = selectsize.selectedIndex;
+        var imgsize = selectsize.options[selectopt].value;
+        setsize.value = imgsize;
+        window.size = imgsize;
+        selectsize.addEventListener("change", async function () {
+            var selectopt = selectsize.selectedIndex;
+            var imgsize = selectsize.options[selectopt].value;
+            setsize.value = imgsize;
+            var res = await Gluon.ipc.send("getsize", {size: imgsize});
+            console.log(imgsize);
+            console.log(res);
+        });
+
+        //保存
+        const save = document.getElementById("save");
+        const sendimg = document.getElementById("sendimg");
+        const submit = document.getElementById("submit");
+        save.addEventListener("click", async function () {
+            await Promise.all(Array.from({ length: 12 }, (_, n) => {
+                return new Promise((res1, rej1) => {
+                    var get = document.getElementById(`get${n}`);
+                    var blob = new Blob([get.files[0]], {type: "image/png"}); 
+                    var reader = new FileReader();
+                    try{
+                        reader.onload = function(event){
+                            var binary = event.target.result;
+                            res1(binary);    
+                        }
+                    } catch(err) {
+                        console.error(`reader${err}`);
+                        rej1();
+                    };
+                    reader.readAsBinaryString(blob);
+                });
+            }))
+            .then(async (data) => {
+                var result = await Gluon.ipc.send("sendimg", {binary: data});
+                result = result.data;
+                console.log(result);
+                try {
+                    const savebase64Data = result;
+                    const savebinarydata = atob(savebase64Data);
+                    const bytearray = new Uint8Array(savebinarydata.length);
+                    for (let i = 0; i < savebinarydata.length; i++) {
+                        bytearray[i] = savebinarydata.charCodeAt(i);
+                    }
+                    const blob = new Blob([bytearray], { type: "image/png" });
+                    const fh = await window.showSaveFilePicker({ suggestedName: "新しいキャラチップ.png"});
+                    const stream =  await fh.createWritable();
+                    console.log(blob);    
+                    await stream.write(blob);
+                    await stream.close();
+                } catch (err){
+                    console.error(err)
+                }
+            }).catch(err => {
+                console.error(err);    
+            })
+        });
+    </script>
+</body>
+</html>
